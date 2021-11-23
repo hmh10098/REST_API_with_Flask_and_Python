@@ -9,10 +9,10 @@ from resources.store import Store, StoreList
 import os
 
 app = Flask(__name__)
-uri = os.getenv("DATABASE_URL")
+uri = os.getenv("DATABASE_URL", "sqlite:///data.db")
 if uri.startswith("postgres://"):
     uri = uri.replace("postgres://", "postgresql://", 1)
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///data.db')
+app.config['SQLALCHEMY_DATABASE_URI'] = uri
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = 'hieu'
 api = Api(app)
